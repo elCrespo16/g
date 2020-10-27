@@ -9,6 +9,5 @@ out vec4 fragColor;
 
 void main()
 {
-	if(gNormal == 1.0) fragColor = vec4(step(0.5,gfrontColor.x),step(0.5,gfrontColor.y),step(0.5,gfrontColor.z),1.0)*texture(colorMap,gtexCoord);
-    else fragColor = vec4(step(0.5,gfrontColor.x),step(0.5,gfrontColor.y),step(0.5,gfrontColor.z),1.0);
+	fragColor = gfrontColor;
 }

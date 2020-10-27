@@ -7,10 +7,8 @@ uniform sampler2D colorMap;
 
 in vec4 vfrontColor[];
 in vec2 vtexCoord[];
-out float gNormal;
 out vec4 gfrontColor;
-out vec2 gtexCoord;
-uniform float step = 0.2;
+uniform float step = 0.1;
 uniform mat4 modelViewProjectionMatrix;
 
 vec3 center() {
@@ -25,10 +23,8 @@ vec3 center() {
 
 void main( void )
 {
-	gtexCoord = vtexCoord[0];
 	gfrontColor = (vfrontColor[0]+vfrontColor[1]+vfrontColor[2])/3;
 	vec3 center = center();
-	gNormal = 0.0;
 	//Cara 1
 	gl_Position = modelViewProjectionMatrix * vec4(center.xyz+0.5*step,1.0);EmitVertex();
 	gl_Position = modelViewProjectionMatrix * vec4(center.x - 0.5*step,center.y+0.5*step,center.z+0.5*step,1.0);EmitVertex();
@@ -42,13 +38,11 @@ void main( void )
 	gl_Position = modelViewProjectionMatrix * vec4(center.x + 0.5*step,center.y-0.5*step,center.z-0.5*step,1.0);EmitVertex();
 	EndPrimitive();
 	//Cara 3 Arriba
-	gNormal = 1.0;
 	gl_Position = modelViewProjectionMatrix * vec4(center.x + 0.5*step,center.y+0.5*step,center.z+0.5*step,1.0);EmitVertex();
 	gl_Position = modelViewProjectionMatrix * vec4(center.x - 0.5*step,center.y+0.5*step,center.z+0.5*step,1.0);EmitVertex();
 	gl_Position = modelViewProjectionMatrix * vec4(center.x + 0.5*step,center.y+0.5*step,center.z-0.5*step,1.0);EmitVertex();
 	gl_Position = modelViewProjectionMatrix * vec4(center.x - 0.5*step,center.y+0.5*step,center.z-0.5*step,1.0);EmitVertex();
 	EndPrimitive();
-	gNormal = 0.0;
 	//Cara 1
 	gl_Position = modelViewProjectionMatrix * vec4(center.xyz-0.5*step,1.0);EmitVertex();
 	gl_Position = modelViewProjectionMatrix * vec4(center.x + 0.5*step,center.y-0.5*step,center.z-0.5*step,1.0);EmitVertex();

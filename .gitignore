@@ -1,5 +1,6 @@
 viewer/*
 !*.tgz
 !viewer/*.vert
+!viewer/*.geom
 !viewer/*.frag
 !.gitignore

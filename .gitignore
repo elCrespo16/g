@@ -10,3 +10,4 @@ viewer/GLarena
 viewer/GLarenaPL
 viewer/GLarenaSL
 Makefile
+**/build/

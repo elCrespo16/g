@@ -32,6 +32,7 @@ bool DrawSmooth::drawObject(int i)
   GLWidget &g = *glwidget();
   g.makeCurrent();
   g.glBindVertexArray(VAOs[i]);
+  //cout << "voy a pintar " << numIndices[i] << endl;
   g.glDrawElements(GL_TRIANGLES, numIndices[i], GL_UNSIGNED_INT, 0);
   g.glBindVertexArray(0);
   return true;
@@ -70,12 +71,12 @@ void DrawSmooth::addVBO(unsigned int currentObject)
   vector<float> normals;  // (nx,ny,nz) Final size: 9*number of triangles
   vector<float> colors;   // (r, g, b)  Final size: 9*number of triangles
   vector<float> texCoords;// (s, t)     Final size: 6*number of triangles
-  vector<int> indices;
+  vector<GLuint> indices;
   int numFaces = obj.faces().size();
   for(int i = 0;i < numFaces;++i){
   	int fsize = obj.faces()[i].numVertices();
   	for(int j = 0;j < fsize;++j){
-  		cout << obj.faces()[i].vertexIndex(j) << endl;
+  		//cout << obj.faces()[i].vertexIndex(j) << endl;
   		indices.push_back(obj.faces()[i].vertexIndex(j));
   	}
   }
@@ -154,9 +155,9 @@ void DrawSmooth::addVBO(unsigned int currentObject)
   
  
   g.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indicesID);
-  g.glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int)*indices.size(), &indices[0], GL_STATIC_DRAW);
+  g.glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint)*indices.size(), &indices[0], GL_STATIC_DRAW);
   
   g.glBindBuffer(GL_ARRAY_BUFFER,0);
-  g.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
+  //g.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0); Si descomentas esta llamada no se pinta nada xd
   g.glBindVertexArray(0);
 }
